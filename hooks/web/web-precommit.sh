@@ -12,4 +12,4 @@ if [ -z "$FILES" ]; then
   exit 0
 fi
 
-pre-commit run --config hooks/web/.pre-commit-config.yaml --files $FILES
+pre-commit run --config ./.pre-commit-config.yaml --files $FILES
