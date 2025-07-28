@@ -1,4 +1,4 @@
 - id: web-precommit
   name: "Perform PreCommit for Web Project 🌐"
-  entry: pre-commit run --config web/.pre-commit-config.yaml --all-files
+  entry: pre-commit run --config hooks/web/.pre-commit-config.yaml --all-files
   language: system
