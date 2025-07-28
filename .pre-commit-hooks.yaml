@@ -1,4 +1,4 @@
 - id: web-precommit
-  name: "Perform PreCohhmmit for Web Project 🌐"
+  name: "Perform PreCommit for Web Project 🌐"
   entry: hooks/web/web-precommit.sh
   language: script
