@@ -1,6 +1,3 @@
-_min_copier_version: "7.0"
-_subdirectory: template
-
 questions:
   tech_stack:
     type: str
