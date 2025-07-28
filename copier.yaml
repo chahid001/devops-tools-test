@@ -1,8 +1,7 @@
-questions:
-  tech_stack:
-    type: str
-    help: What tech do you use?
-    choices:
-      - javascript
-      - typescript
-      - python
+tech_stack:
+  type: str
+  help: What tech do you use?
+  choices:
+    - javascript
+    - typescript
+    - python
