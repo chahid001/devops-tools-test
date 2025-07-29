@@ -31,7 +31,7 @@ entry: python3 -m unittest discover -s tests
 
 {%- macro python_cq() -%}
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.4.10
+  rev: v0.12.5
   hooks:
   - id: ruff-format # ---------- Formatting 
     name: "Formatting 📝 "
@@ -76,7 +76,7 @@ repos:
 #                   🔐 Security Check                  #
 # ---------------------------------------------------- #
 - repo: https://github.com/gitleaks/gitleaks
-  rev: v8.22.1
+  rev: v8.28.0
   hooks:
   - id: gitleaks
     # args: ["--config", "gitleaks.toml"] # In case of custom rules
