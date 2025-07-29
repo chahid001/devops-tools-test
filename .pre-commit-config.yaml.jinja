@@ -42,15 +42,15 @@ repos:
 # ---------------------------------------------------- #
 #                🔎 Code Quality Check                 #
 # ---------------------------------------------------- #
-- repo: https://github.com/astral-sh/ruff
+- repo: https://github.com/astral-sh/ruff-pre-commit
   rev: v0.4.10
   hooks:
-  - id: biome-format # ---------- Formatting 
+  - id: ruff-format # ---------- Formatting 
     name: "Formatting 📝 "
-  - id: biome-lint. # ---------- Lint
+  - id: ruff-check # ---------- Lint
     name: "Lintting 📌 "
-  - id: biome-check # ---------- Final Check
-    name: "Final Check 🗃️ "
+    args:
+    # - --fix
 {% endif %}
 
 # ---------------------------------------------------- #
