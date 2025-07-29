@@ -1,55 +1,3 @@
-{%- macro web_entry() -%}
-npm test -- --bail --findRelatedTests
-{%- endmacro -%}
-
-{%- macro python_entry() -%}
-python3 -m unittest discover -s tests
-{%- endmacro -%}
-
-{%- macro choose_entry(tech_stack) -%}
-
-  {%- if tech_stack == "JS/TS[X]" -%}
-    {{ web_entry() }}
-  {%- elif tech_stack == "Python" -%}
-    {{ python_entry() }}
-  {%- endif -%}
-
-{%- endmacro -%}
-
-{%- macro web_cq() -%}
-- repo: https://github.com/biomejs/pre-commit
-  rev: v2.1.2
-  hooks:
-  - id: biome-format # ---------- Formatting 
-    name: "Formatting 📝 "
-  - id: biome-lint # ---------- Lint
-    name: "Linting 📌 "
-  - id: biome-check # ---------- Final Check
-    name: "Final Check 🗃️  "
-{%- endmacro -%}
-
-{%- macro python_cq() -%}
-- repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.4.10
-  hooks:
-  - id: ruff-format # ---------- Formatting 
-    name: "Formatting 📝 "
-  - id: ruff-check # ---------- Lint
-    name: "Lintting 📌 "
-    # args:
-    # - --fix
-{%- endmacro -%}
-
-{%- macro choose_cq(tech_stack) -%}
-
-  {%- if tech_stack == "JS/TS[X]" -%}
-    {{ web_cq() }}
-  {%- elif tech_stack == "Python" -%}
-    {{ python_cq() }}
-  {%- endif -%}
-
-{%- endmacro -%}
-
 # ---------------------------------------------------------------------------- #
 #                              🔄 Pre-Commit Hooks                             #
 # ---------------------------------------------------------------------------- #
@@ -62,14 +10,22 @@ repos:
   hooks:
     - id: unit-tests
       name: "Performing Unit Tests 🧪  "
-      entry: {{ choose_entry(tech_stack) }}
+      entry: python3 -m unittest discover -s tests
       language: system
       pass_filenames: false
 
 # ---------------------------------------------------- #
 #                🔎 Code Quality Check                 #
 # ---------------------------------------------------- #
-{{ choose_cq(tech_stack) }}
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.4.10
+  hooks:
+  - id: ruff-format # ---------- Formatting 
+    name: "Formatting 📝 "
+  - id: ruff-check # ---------- Lint
+    name: "Lintting 📌 "
+    # args:
+    # - --fix
 
 # ---------------------------------------------------- #
 #                   🔐 Security Check                  #
