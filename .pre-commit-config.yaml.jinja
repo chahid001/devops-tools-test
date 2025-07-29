@@ -1,18 +1,39 @@
-{%- macro web_entry() -%}
+{%- macro web_ut() -%}
 entry: npm test -- --bail --findRelatedTests
 {%- endmacro -%}
 
-{%- macro python_entry() -%}
+{%- macro python_ut() -%}
 entry: python3 -m unittest discover -s tests
+      pass_filenames: false
+{%- endmacro -%}
+
+{%- macro dotnet_ut() -%}
+entry: dotnet test --no-restore
+      pass_filenames: false
+{%- endmacro -%}
+
+{%- macro flutter_ut() -%}
+entry: flutter test
+      pass_filenames: false
+{%- endmacro -%}
+
+{%- macro java_ut() -%}
+entry: mvn test
       pass_filenames: false
 {%- endmacro -%}
 
 {%- macro choose_entry(tech_stack) -%}
 
   {%- if tech_stack == "JS/TS[X]" -%}
-    {{ web_entry() }}
+    {{ web_ut() }}
   {%- elif tech_stack == "Python" -%}
-    {{ python_entry() }}
+    {{ python_ut() }}
+  {%- elif tech_stack == ".Net" -%}
+    {{ dotnet_ut() }}
+  {%- elif tech_stack == "Flutter" -%}
+    {{ flutter_ut() }}
+  {%- elif tech_stack == "Java" -%}
+    {{ java_ut() }}
   {%- endif -%}
 
 {%- endmacro -%}
@@ -37,8 +58,58 @@ entry: python3 -m unittest discover -s tests
     name: "Formatting 📝 "
   - id: ruff-check # ---------- Lint
     name: "Linting 📌 "
-    # args:
-    # - --fix
+    args:
+    - --fix
+{%- endmacro -%}
+
+{%- macro dotnet_cq() -%}
+- repo: local
+  hooks:
+  - id: dotnet-format # ---------- Formatting 
+    name: "Formatting 📝 "
+    entry: dotnet format
+    language: system
+    pass_filenames: false
+  - id: dotnet-check # ---------- Lint
+    name: "Linting 📌 "
+    entry: dotnet build --no-restore -warnaserror
+    language: system
+    pass_filenames: false
+{%- endmacro -%}
+
+{%- macro flutter_cq() -%}
+- repo: local
+  hooks:
+  - id: flutter-format # ---------- Formatting 
+    name: "Formatting 📝 "
+    entry: flutter format .
+    language: system
+    pass_filenames: false
+  - id: flutter-check # ---------- Lint
+    name: "Linting 📌 "
+    entry: flutter analyze
+    language: system
+    pass_filenames: false
+{%- endmacro -%}
+
+{%- macro java_cq() -%}
+- repo: local
+  hooks:
+  - id: java-format # ---------- Formatting 
+    name: "Formatting 📝 "
+    entry: mvn fmt:format
+    language: system
+    pass_filenames: false
+  - id: java-check # ---------- Lint
+    name: "Linting 📌 "
+    entry: mvn checkstyle:check
+    language: system
+    pass_filenames: false
+  - id: java-bugs # ---------- Bugs
+    name: "Scanning for Bugs 🐞 "
+    entry: mvn spotbugs:check
+    language: system
+    pass_filenames: false
 {%- endmacro -%}
 
 {%- macro choose_cq(tech_stack) -%}
@@ -47,6 +118,12 @@ entry: python3 -m unittest discover -s tests
     {{ web_cq() }}
   {%- elif tech_stack == "Python" -%}
     {{ python_cq() }}
+  {%- elif tech_stack == ".Net" -%}
+    {{ dotnet_cq() }}
+  {%- elif tech_stack == "Flutter" -%}
+    {{ flutter_cq() }}
+  {%- elif tech_stack == "Java" -%}
+    {{ java_cq() }}
   {%- endif -%}
 
 {%- endmacro -%}
