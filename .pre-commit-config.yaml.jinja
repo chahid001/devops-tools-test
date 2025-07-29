@@ -30,6 +30,16 @@ repos:
 
 {% if tech_stack == ["python"] %}
 # ---------------------------------------------------- #
+#                    🧪 Unit Tests                     #
+# ---------------------------------------------------- #
+- repo: local
+  hooks:
+    - id: unit-tests
+      name: "Performing Unit Tests 🧪  "
+      entry: python3 -m unittest discover -s tests
+      language: system
+
+# ---------------------------------------------------- #
 #                🔎 Code Quality Check                 #
 # ---------------------------------------------------- #
 - repo: https://github.com/astral-sh/ruff
