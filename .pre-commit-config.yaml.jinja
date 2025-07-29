@@ -1,9 +1,12 @@
+{% macro u_tests_entry() %}
+npm test -- --bail --findRelatedTests
+{% endmacro %}
+
 # ---------------------------------------------------------------------------- #
 #                              🔄 Pre-Commit Hooks                             #
 # ---------------------------------------------------------------------------- #
 
 repos:
-{% if tech_stack == "JS/TS[X]" %}
 # ---------------------------------------------------- #
 #                    🧪 Unit Tests                     #
 # ---------------------------------------------------- #
@@ -11,8 +14,9 @@ repos:
   hooks:
     - id: unit-tests
       name: "Performing Unit Tests 🧪  "
-      entry: npm test -- --bail --findRelatedTests
+      entry: {% if tech_stack == "JS/TS[X]" %} u_tests_entry() {% endif %}
       language: system
+      pass_filenames: false
 
 # ---------------------------------------------------- #
 #                🔎 Code Quality Check                 #
@@ -26,7 +30,7 @@ repos:
     name: "Linting 📌 "
   - id: biome-check # ---------- Final Check
     name: "Final Check 🗃️  "
-{% endif %}
+
 
 {% if tech_stack == "Python" %}
 # ---------------------------------------------------- #
@@ -49,7 +53,7 @@ repos:
     name: "Formatting 📝 "
   - id: ruff-check # ---------- Lint
     name: "Lintting 📌 "
-    args:
+    # args:
     # - --fix
 {% endif %}
 
