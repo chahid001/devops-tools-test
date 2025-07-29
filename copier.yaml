@@ -2,6 +2,5 @@ tech_stack:
   type: str
   help: What tech do you use?
   choices:
-    - javascript
-    - typescript
-    - python
+    - JS/TS[X]
+    - Python
