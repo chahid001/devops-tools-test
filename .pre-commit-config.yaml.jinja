@@ -1,18 +1,18 @@
-{% macro web_entry() %}
+{% macro web_entry() -%}
 npm test -- --bail --findRelatedTests
-{% endmacro %}
+{%- endmacro %}
 
-{% macro python_entry() %}
+{% macro python_entry() -%}
 python3 -m unittest discover -s tests
-{% endmacro %}
+{%- endmacro %}
 
 {% macro choose_entry(tech_stack) -%}
 
-  {% if tech_stack == "JS/TS[X]" %}
+  {% if tech_stack == "JS/TS[X]" -%}
     {{ web_entry() }}
-  {% elif tech_stack == "Python" %}
+  {% elif tech_stack == "Python" -%}
     {{ python_entry() }}
-  {% endif %}
+  {%- endif %}
 
 {%- endmacro %}
 
