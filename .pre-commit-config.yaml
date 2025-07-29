@@ -11,8 +11,9 @@ repos:
     - id: unit-tests
       name: "Performing Unit Tests 🧪  "
       entry: python3 -m unittest discover -s tests
-      language: system
       pass_filenames: false
+      language: system
+      
 
 # ---------------------------------------------------- #
 #                🔎 Code Quality Check                 #
@@ -23,7 +24,7 @@ repos:
   - id: ruff-format # ---------- Formatting 
     name: "Formatting 📝 "
   - id: ruff-check # ---------- Lint
-    name: "Lintting 📌 "
+    name: "Linting 📌 "
     # args:
     # - --fix
 

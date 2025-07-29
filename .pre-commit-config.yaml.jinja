@@ -1,9 +1,10 @@
 {%- macro web_entry() -%}
-npm test -- --bail --findRelatedTests
+entry: npm test -- --bail --findRelatedTests
 {%- endmacro -%}
 
 {%- macro python_entry() -%}
-python3 -m unittest discover -s tests
+entry: python3 -m unittest discover -s tests
+      pass_filenames: false
 {%- endmacro -%}
 
 {%- macro choose_entry(tech_stack) -%}
@@ -35,7 +36,7 @@ python3 -m unittest discover -s tests
   - id: ruff-format # ---------- Formatting 
     name: "Formatting 📝 "
   - id: ruff-check # ---------- Lint
-    name: "Lintting 📌 "
+    name: "Linting 📌 "
     # args:
     # - --fix
 {%- endmacro -%}
@@ -62,9 +63,9 @@ repos:
   hooks:
     - id: unit-tests
       name: "Performing Unit Tests 🧪  "
-      entry: {{ choose_entry(tech_stack) }}
+      {{ choose_entry(tech_stack) }}
       language: system
-      pass_filenames: false
+      
 
 # ---------------------------------------------------- #
 #                🔎 Code Quality Check                 #
