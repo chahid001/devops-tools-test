@@ -1,6 +1,20 @@
-{% macro u_tests_entry() %}
+{% macro web_entry() %}
 npm test -- --bail --findRelatedTests
 {% endmacro %}
+
+{% macro python_entry() %}
+python3 -m unittest discover -s tests
+{% endmacro %}
+
+{% macro choose_entry(tech_stack) -%}
+
+  {% if tech_stack == "JS/TS[X]" %}
+    {{ web_entry() }}
+  {% elif tech_stack == "Python" %}
+    {{ python_entry() }}
+  {% endif %}
+
+{%- endmacro %}
 
 # ---------------------------------------------------------------------------- #
 #                              🔄 Pre-Commit Hooks                             #
@@ -14,7 +28,7 @@ repos:
   hooks:
     - id: unit-tests
       name: "Performing Unit Tests 🧪  "
-      entry: {% if tech_stack == "JS/TS[X]" %} u_tests_entry() {% endif %}
+      entry: {{ choose_entry(tech_stack) }}
       language: system
       pass_filenames: false
 
@@ -33,16 +47,6 @@ repos:
 
 
 {% if tech_stack == "Python" %}
-# ---------------------------------------------------- #
-#                    🧪 Unit Tests                     #
-# ---------------------------------------------------- #
-- repo: local
-  hooks:
-    - id: unit-tests
-      name: "Performing Unit Tests 🧪  "
-      entry: python3 -m unittest discover -s tests
-      language: system
-
 # ---------------------------------------------------- #
 #                🔎 Code Quality Check                 #
 # ---------------------------------------------------- #
