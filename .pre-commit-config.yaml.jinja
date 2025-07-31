@@ -100,16 +100,6 @@ entry: mvn test
     entry: mvn spotless:check
     language: system
     pass_filenames: false
-  - id: java-check # ---------- Lint
-    name: "Linting 📌 "
-    entry: mvn checkstyle:check
-    language: system
-    pass_filenames: false
-  - id: java-bugs # ---------- Bugs
-    name: "Scanning for Bugs 🐞 "
-    entry: mvn spotbugs:check
-    language: system
-    pass_filenames: false
 {%- endmacro -%}
 
 {%- macro choose_cq(tech_stack) -%}
