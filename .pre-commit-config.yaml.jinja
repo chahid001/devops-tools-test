@@ -67,7 +67,7 @@ entry: mvn test
   hooks:
   - id: dotnet-format # ---------- Formatting 
     name: "Formatting 📝 "
-    entry: dotnet format
+    entry: dotnet format --verify-no-changes
     language: system
     pass_filenames: false
   - id: dotnet-check # ---------- Lint
@@ -97,7 +97,7 @@ entry: mvn test
   hooks:
   - id: java-format # ---------- Formatting 
     name: "Formatting 📝 "
-    entry: mvn fmt:format
+    entry: mvn spotless:check
     language: system
     pass_filenames: false
   - id: java-check # ---------- Lint
